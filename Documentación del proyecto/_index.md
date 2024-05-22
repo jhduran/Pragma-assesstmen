@@ -17,6 +17,15 @@ A continuación se presenta la arquitectura planteada como MVP
 
 ![Diagrama de Arquitectura](Diagramas/diagrama-arquitectura.drawio.png)
 
+Las funciones que los componentes proveen al servicio se relacionan en la siguiente tabla:
+
+|Componente|Función|
+|-|-|-|-|
+|VPC|Amazon Virtual Private Cloud (Amazon VPC) brinda control total sobre el entorno de redes virtuales, incluidas la ubicación de los recursos, la conectividad y la seguridad.|
+|AWS Amplify|es un conjunto de herramientas y servicios que permiten a los desarrolladores de Front End (web y móviles) crear aplicaciones seguras y escalables full-stack, con tecnología desarrolada por Utilizaremos Amplify para la integración de Front End con APIs y servicios de autenticación|
+|AWS Lambda|permite ejecutar código sin aprovisionar ni administrar servidores. Utilizaremos Lambda en dos puntos de la aplicación. El primero será el procesamiento de la información recibida a través de IoT Core y el envío a Location Service. El segundo punto es para procesar llamadas API y consultar Location Service para el seguimiento de la información.|
+
+
 ### Versión
 1.0.0
 
