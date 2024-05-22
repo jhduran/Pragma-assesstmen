@@ -8,11 +8,14 @@ description: "El proyecto responde al ejercicio planteado de la empresa CSS, que
 Permitir el monitoreo de rutas de vehículos para diversas compañías. Adicionalmente puedes configurar usuarios, dispositivos, definir roles y visualizar análiticas de todo los eventos relativos a las rutas recorridas, recibir alertas en tiempo real sobre eventos con el vehículo así como la carga 
 
 ### Diagramas de concepto
-* #En los siguientes diagramas se presentan de forma muy general los distintos alcances planteados en el ejercicio
-![Diagrama de Componentes](Diagramas/diagramas-Diagrama Concepto.drawio.png)
+En los siguientes diagramas se presentan de forma muy general los distintos alcances planteados en el ejercicio
+
+![Diagrama de Concepto](Diagramas/diagrama-concepto.drawio.png)
 
 ### Diagrama de Arquitectura
-![Diagrama de Componentes](Diagramas/diagrama-arquitectura.drawio.png)
+A continuación se presenta la arquitectura planteada como MVP
+
+![Diagrama de Arquitectura](Diagramas/diagrama-arquitectura.drawio.png)
 
 ### Versión
 1.0.0
