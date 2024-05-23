@@ -42,50 +42,43 @@ Las funciones que los componentes proveen al servicio se relacionan en la siguie
 ### Diagrama de dominios y de Entidad-Relación
 Para la definición del modelo de entidad-relación, primero realicé un ejercicio de DDD (Domain Driven Design) donde identifiqué los principales dominios del negocio, posteriormente realicé el diagrama del modelo de entidad relación donde se detalla más claramente la interrelación entre los dominios. Posteriormente en los flujos BPMN se completó el ejercicio DDD con event storming
 
+## Diagrama Entidad-Relación
 ![Diagrama de entidad relación](Diagramas/Modelo-Entidad-Relación.drawio.png)
 
+## Diagrama de Dominios
 ![Ejercicio DDD](Diagramas/DDD.png)
 
-### Escenarios de prueba BDD
+## Escenarios de prueba BDD
 Para la descripción de los escenarios de pruebas usamos la metodología BDD (Behavior Driven Development), a continuación se presentan los escenarios planteados
-
 ![Escenarios BDD](Diagramas/BDD-Sistema-CCS.png)
-
 
 ### Blue Prints de Servicios
 A continuación presentamos los blue prints de servicios identificados
 
 * BP Gestionar Sistema CCS: Este blue print presenta el flujo de autenticación de un usuario en el sistema y las opciones de menú a las que puede acceder
-
 ![BP Gestionar Sistema CCS](Diagramas/BP-Gestionar-Sistema-CCS.png)
 
 
 * BP Gestionar registro de usuarios: Este blue print presenta el flujo de registro de un usuario nuevo, para crear credenciales en el sistema
-
 ![BP Gestionar registro de usuarios](Diagramas/BP-Gestionar-registro-de-usuarios.png)
 
 
 * BP Gestionar registro de  empresas: Este blue print presenta el flujo de creación de una empresa
-
 ![BP Gestionar registro de  empresas](Diagramas/BP-Gestionar-registro-de-empresa.png)
 
 
 * BP Gestionar documentos: Este blue print presenta el flujo de registro de documentos de una empresa
-
 ![BP Gestionar documentos](Diagramas/BP-Gestionar-documentos.png)
 
 
 * BP Gestionar relacionados: Este blue print presenta el flujo de registro de usuarios y relacionados de una empresa
-
 ![BP Gestionar relacionados](Diagramas/BP-Gestionar-documentos.png)
 
 
 * BP Gestionar relacionados: Este blue print presenta el flujo de registro de usuarios y relacionados de una empresa
-
 ![BP Gestionar relacionados](Diagramas/BP-Gestionar-relacionados.png)
 
 * BP Gestionar dispositivos: Este blue print presenta el flujo de registro de dispositivos de confianza del usuario
-
 ![BP Gestionar dispositivos](Diagramas/BP-Gestionar-dispositivos.png)
 
 
