@@ -43,7 +43,7 @@ Las funciones que los componentes proveen al servicio se relacionan en la siguie
 ### Escenarios de prueba BDD
 Para la descripción de los escenarios de pruebas usamos la metodología BDD (Behavior Driven Development), a continuación se presentan los escenarios planteados
 
-![Escenarios BDD](Diagramas/BDD-Sistema-CCS.pdf)
+![Escenarios BDD](Diagramas/BDD-Sistema-CCS.png)
 
 
 ### Capacidades pertenecientes a la API
