@@ -4,7 +4,7 @@ date: 2024-05-18T09:23:25-05:00
 description: "El proyecto responde al ejercicio planteado de la empresa CSS, que brinda una solución de monitoreo de vehículos"
 ---
 <!-- Agregar la Descripción detallada del API. -->
-#### Descripción Funcional Detallada
+## Descripción Funcional Detallada
 Permitir el monitoreo de rutas de vehículos para diversas compañías. Adicionalmente puedes configurar usuarios, dispositivos, definir roles y visualizar análiticas de todo los eventos relativos a las rutas recorridas, recibir alertas en tiempo real sobre eventos con el vehículo así como la carga 
 
 ### Diagramas de concepto
@@ -42,13 +42,13 @@ Las funciones que los componentes proveen al servicio se relacionan en la siguie
 ### Diagrama de dominios y de Entidad-Relación
 Para la definición del modelo de entidad-relación, primero realicé un ejercicio de DDD (Domain Driven Design) donde identifiqué los principales dominios del negocio, posteriormente realicé el diagrama del modelo de entidad relación donde se detalla más claramente la interrelación entre los dominios. Posteriormente en los flujos BPMN se completó el ejercicio DDD con event storming
 
-## Diagrama Entidad-Relación
+#### Diagrama Entidad-Relación
 ![Diagrama de entidad relación](Diagramas/Modelo-Entidad-Relación.drawio.png)
 
-## Diagrama de Dominios
+#### Diagrama de Dominios
 ![Ejercicio DDD](Diagramas/DDD.png)
 
-## Escenarios de prueba BDD
+#### Escenarios de prueba BDD
 Para la descripción de los escenarios de pruebas usamos la metodología BDD (Behavior Driven Development), a continuación se presentan los escenarios planteados
 ![Escenarios BDD](Diagramas/BDD-Sistema-CCS.png)
 
