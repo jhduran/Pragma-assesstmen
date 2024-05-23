@@ -54,13 +54,39 @@ Para la descripción de los escenarios de pruebas usamos la metodología BDD (Be
 ### Blue Prints de Servicios
 A continuación presentamos los blue prints de servicios identificados
 
-* BP Gestionar Sistema CCS: Este blue print presenta el flujo de registro de un usuario nuevo y las opciones de menú a las que puede acceder
+* BP Gestionar Sistema CCS: Este blue print presenta el flujo de autenticación de un usuario en el sistema y las opciones de menú a las que puede acceder
 
 ![BP Gestionar Sistema CCS](Diagramas/BP-Gestionar-Sistema-CCS.png)
 
 
-* [prepareTransaction](mapeos/#prepareTransaction "ver capacidad")
-* [retrieveStatusTransaction](mapeos/#retrieveStatusTransaction "ver capacidad")
+* BP Gestionar registro de usuarios: Este blue print presenta el flujo de registro de un usuario nuevo, para crear credenciales en el sistema
+
+![BP Gestionar registro de usuarios](Diagramas/BP-Gestionar-registro-de-usuarios.png)
+
+
+* BP Gestionar registro de  empresas: Este blue print presenta el flujo de creación de una empresa
+
+![BP Gestionar registro de  empresas](Diagramas/BP-Gestionar-registro-de-empresa.png)
+
+
+* BP Gestionar documentos: Este blue print presenta el flujo de registro de documentos de una empresa
+
+![BP Gestionar documentos](Diagramas/BP-Gestionar-documentos.png)
+
+
+* BP Gestionar relacionados: Este blue print presenta el flujo de registro de usuarios y relacionados de una empresa
+
+![BP Gestionar relacionados](Diagramas/BP-Gestionar-documentos.png)
+
+
+* BP Gestionar relacionados: Este blue print presenta el flujo de registro de usuarios y relacionados de una empresa
+
+![BP Gestionar relacionados](Diagramas/BP-Gestionar-relacionados.png)
+
+* BP Gestionar dispositivos: Este blue print presenta el flujo de registro de dispositivos de confianza del usuario
+
+![BP Gestionar dispositivos](Diagramas/BP-Gestionar-dispositivos.png)
+
 
 ## Estándares soportados
 
