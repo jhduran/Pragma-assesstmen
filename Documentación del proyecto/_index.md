@@ -136,3 +136,23 @@ Este principio es una guía de diseño y desarrollo que aboga por la simplicidad
 #### YAGNI — “You Aren’t Gonna Need It”.
 Este principio se utiliza en el desarrollo de software y en la ingeniería de software para enfatizar que no debes agregar funcionalidades o escribir código que no sea necesario en el momento actual. En lugar de anticipar posibles necesidades futuras y agregar funcionalidades complejas de manera especulativa, se enfoca en implementar solo lo que se necesita en el momento presente para cumplir con los requisitos del proyecto.
 
+### Realizar pruebas enfocadas en TDD
+El desarrollo guiado por pruebas (TDD) es fundamental para agilizar los procesos de desarrollo de software. Aplicada correctamente, TDD contribuye a crear un código más fiable y flexible, promoviendo soluciones escalables y de alta calidad mediante la automatización. A continuación, describimos algunas buenas prácticas para la aplicación de TDD.
+
+- Tests pequeños y focalizados. Cada test debe centrarse en un único aspecto o funcionalidad. Esto hace que los tests sean más fáciles de escribir, entender y mantener. 
+
+- Claridad y limpieza. Los tests deben ser claras y legibles, actuando como documentación viva del sistema. Deben explicar el propósito y el uso esperado de las unidades de código para la comprensión y el mantenimiento a largo plazo.
+
+- Denominación de los tests. Los nombres de los tests deben ser descriptivos y reflejar lo que están probando. Esto puede ayudar a otros a entender el propósito de la prueba y qué aspecto del código se está validando.
+
+- Refactorización. La refactorización no se aplica solo al código de producción; los tests también deben ser objeto de refactorización para mejorar su claridad y eficiencia.
+
+- Frecuencia. Los tests deben ejecutarse tan a menudo como sea posible, idealmente de forma automática mediante la integración continua, para proporcionar retroalimentación rápida sobre los cambios en el código.
+
+- Tests independientes. Cada test debe ser independiente y no depender de otros. Esto asegura que pueden ejecutarse en cualquier orden y que el fallo de un test no afecta a los demás. Por ello, es conveniente ejecutar todos los tests cuando se añade un comportamiento nuevo (en la fase Green) porque pasar el último test no significa que no exista un error en otra parte. De esta manera nos aseguramos que no se ha introducido ningún error de regresión.
+
+- Sencillez. Los tests deben ser simples y evitar contener lógica condicional o bucles, ya que esto puede introducir errores en los propios tests y hacerlos más difíciles de comprender y mantener.
+
+- Disciplina. Mantenerse fiel al ciclo de TDD (Red, Green, Refactor) y resistir la tentación de saltarse pasos o escribir código sin una prueba fallida previa. Esto asegura que el proceso de TDD se mantenga efectivo.
+
+- Pair programming. Implementar TDD en parejas te ayuda a obtener feedback inmediato sobre los tests y su comportamiento. Al aplicar pair programming mejorarás tus capacidades gracias al intercambio positivo y constructivo de ideas. 
