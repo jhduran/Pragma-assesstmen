@@ -42,11 +42,11 @@ Las funciones que los componentes proveen al servicio se relacionan en la siguie
 ### Diagrama de dominios y de Entidad-Relación
 Para la definición del modelo de entidad-relación, primero realicé un ejercicio de DDD (Domain Driven Design) donde identifiqué los principales dominios del negocio, posteriormente realicé el diagrama del modelo de entidad relación donde se detalla más claramente la interrelación entre los dominios. Posteriormente en los flujos BPMN se completó el ejercicio DDD con event storming
 
-#### Diagrama Entidad-Relación
-![Diagrama de entidad relación](Diagramas/Modelo-Entidad-Relación.drawio.png)
-
 #### Diagrama de Dominios
 ![Ejercicio DDD](Diagramas/DDD.png)
+
+#### Diagrama Entidad-Relación
+![Diagrama de entidad relación](Diagramas/Modelo-Entidad-Relación.drawio.png)
 
 #### Escenarios de prueba BDD
 Para la descripción de los escenarios de pruebas usamos la metodología BDD (Behavior Driven Development), a continuación se presentan los escenarios planteados
@@ -82,84 +82,34 @@ A continuación presentamos los blue prints de servicios identificados
 ![BP Gestionar dispositivos](Diagramas/BP-Gestionar-dispositivos.png)
 
 
-## Estándares soportados
+## Consideraciones Código Limpio
+Se recomienda seguir las pautas de desarrollo bajo código limpio, las cuales se resumen a continuación
 
-- **OAS** (Version 2.0): Estándar de especificación de la API.
-- **JSON** (vnd.bancolombia.v4+json): Estándar de mensajeria que define la estructura de la API.
+* Los principios del código limpio son los siguientes:
 
-## Contrato
+- La regla del boy scout: Cuando estás trabajando en un software, trata de mejorar tu entorno de trabajo siempre que sea posible, tal como lo hacen los boy scout con el medio ambiente. Por ejemplo, puedes cambiar el nombre de una variable confusa, dividir una tarea en funciones reutilizables, separar responsabilidades en diferentes partes del código, o cualquier otra acción que mejore tu flujo de trabajo.
 
-<!-- Conservar esta etiqueta, el link del contrato se asignará en tiempo de construcción del sitio -->
-<a href="contrato.txt" download>Descargar</a>
+- Nombres con sentido: Los nombres de variables y funciones deben ser descriptivos y claros para que cualquier persona que lea el código pueda comprender fácilmente su propósito y su función dentro del programa. 
+-- Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular.
 
-## Modelo de componentes
-{{<diagram data="diagramas/diagrama-arquitectura.jpg">}}
 
-Las funciones que los componentes proveen al servicio se relacionan en la siguiente tabla:
+|Objeto|Regla|Incorrecto|Correcto|
+|:-:|:-:|:-:|:-:|
+|Variables|Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular|temp, tall, fruits_list|temperature, is_tall, fruits_names|
+|Funciones|Los métodos o funciones deben ser nombrados con verbos que describan claramente lo que hacen. Es importante que el nombre de la función refleje su propósito y la acción que realiza dentro del programa. Por ejemplo, en lugar de nombres genéricos o ambiguos, como “calcular” o “procesar”, es preferible utilizar nombres descriptivos que indiquen específicamente la tarea que realiza la función. Esto ayuda a mejorar la comprensión del código y facilita su mantenimiento a largo plazo. A su vez, los parámetros de entrada deben ser descriptivos.|upload, create|upload_file, create_user|
+|Clases|Cuando se nombran clases en programación, es importante utilizar sustantivos o frases de nombres que describan claramente su propósito y función en el programa. Evita nombres genéricos como “Data” o “Loader”, ya que no transmiten información suficiente sobre el propósito de la clase.|Convert, Parse|ConvertPDF, XMLParse|
 
-|Componente|Función|Estilo de Interacción|Estilo Técnico Comunicación|
-|-|-|-|-|
-|FinancialGatewayCashIn|Es el componente donde se implementa la lógica de la API, donde se realizan validaciones de campos y las transformaciones de mensajería para la solicitud y respuesta del servicio|Request/Response|Síncrono|
-|API Connect - Analytics|Es la aplicación que se encarga de registrar los consumos y de generar datos de analítica a las APIs en API Connect.|Request/Response|Síncrono|
 
-### Analytics
-Subsistema que administra:
 
-- Eventos de las API´s
-- Tableros e Indicadores
-- Reportes de Visualización
 
-**Estilo de interacción**: Request/Response
-**Estilo Técnico Comunicación**: Síncrono
+- Reglas de consistencia.
+- Reglas para funciones.
+- Reglas para comentarios.
+- No agregar contexto innecesario.
 
-### PrepararTransaccion
-PrepararTransaccion Permite a un comercio adelantar el proceso de preparación para la recarga del monedero digital. Orquestando los reúsos correspondientes para validar las condiciones requeridas para realizar la transacción correctamente
+Adicionalmente, en el campo del desarrollo de software, existen varios acrónimos que resumen principios prácticos fundamentales que complementan los principios de Clean Code y están estrechamente relacionados. Algunos de estos acrónimos sonlos siguientes:
 
-- **Estilo de interacción**: Request/Response
-- **Estilo Técnico Comunicación**: Asíncrono
+DRY — “Don’t Repeat Yourself”.
+KISS — “Keep It Simple, Stupid”.
+YAGNI — “You Aren’t Gonna Need It”.
 
-## Vista técnica
-
-### Diagrama técnico
-En esta vista se muestran componentes implementados en unidades de despliegue del API.
-
-{{<diagram data="diagramas/despliegue.svg">}}
-
-### Características técnicas
-Características técnicas relevantes y asociadas a los componentes, están relacionadas en la siguiente tabla:
-
-- **Consideraciones de seguridad**: Autorización de consumo a través de API Key (client-Id, Client-Secret) sumado a JWT.
-
-## Trazabilidad del API
-En la siguiente tabla se selecciona el nivel de trazabilidad de los mensajes para cada una de las operaciones del API:
-
-|Operación|Cabecera|Carga útil|Mensaje completo|System Exception|
-|:-:|:-:|:-:|:-:|:-:|
-|retrieveTerms (POST)|X|X||X|
-|prepareTransaction (POST)|X|X||X|
-|retrieveStatusTransaction (POST)|X|X||X|
-
-### Plataforma de despliegue del API
-Se requiere que la API sea expuesta en un ambiente estable y con la mayor cantidad de capacidades.
-
-Alternativas:
-- API Connect v10
-- API Connect v5
-- IBM Cloud
-
-Decisión:
-- API Connect v10
-
-Implicaciones: La API se expone en un ambiente contenerizado.
-
-### Espacio de API Connect
-Se requiere definir el espacio en que será expuesta la API, el cual está asociado a la línea de negocio **EVC BAAS01/BancolombiaPay**.
-
-Decisión:
-- **EVC BAAS01/BancolombiaPay**
-
-Implicaciones: La API queda asociada a la infraestructura especifica del **EVC BAAS01/BancolombiaPay**.
-
-## Link al repositorio de código
-<!-- Reemplazar por el link al código fuente del componente en azure devops -->
-<a href="https://grupobancolombia.visualstudio.com/Vicepresidencia%20Servicios%20de%20Tecnolog%C3%ADa/_git/NU2660001_Financial_Institutions_External_APIC10" target="_blank">Código fuente</a>
