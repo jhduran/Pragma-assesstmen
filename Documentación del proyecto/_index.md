@@ -83,14 +83,13 @@ A continuación presentamos los blue prints de servicios identificados
 
 
 ### Consideraciones Código Limpio
-Se recomienda seguir las pautas de desarrollo bajo código limpio, las cuales se resumen a continuación
-
-* Los principios del código limpio son los siguientes:
+Se recomienda seguir las pautas de desarrollo bajo código limpio. Los principios del código limpio son los siguientes:
 
 #### La regla del boy scout: 
 Cuando estás trabajando en un software, trata de mejorar tu entorno de trabajo siempre que sea posible, tal como lo hacen los boy scout con el medio ambiente. Por ejemplo, puedes cambiar el nombre de una variable confusa, dividir una tarea en funciones reutilizables, separar responsabilidades en diferentes partes del código, o cualquier otra acción que mejore tu flujo de trabajo.
 
-- Nombres con sentido: Los nombres de variables y funciones deben ser descriptivos y claros para que cualquier persona que lea el código pueda comprender fácilmente su propósito y su función dentro del programa. Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular.
+* Nombres con sentido: 
+Los nombres de variables y funciones deben ser descriptivos y claros para que cualquier persona que lea el código pueda comprender fácilmente su propósito y su función dentro del programa. Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular.
 
 |Objeto|Regla|Incorrecto|Correcto|
 |:-:|:-:|:-:|:-:|
@@ -99,19 +98,41 @@ Cuando estás trabajando en un software, trata de mejorar tu entorno de trabajo 
 |Clases|Cuando se nombran clases en programación, es importante utilizar sustantivos o frases de nombres que describan claramente su propósito y función en el programa. Evita nombres genéricos como “Data” o “Loader”, ya que no transmiten información suficiente sobre el propósito de la clase.|Convert, Parse|ConvertPDF, XMLParse|
 
 Al nombrar variables, métodos o cualquier otro elemento en programación, se deben seguir las siguientes reglas generales:
-. Los nombres deben ser pronunciables, es decir, fáciles de decir y entender para cualquier persona que lea el código.
-. Los nombres deben ser lo más precisos posible y describir con exactitud el propósito o función del elemento.
-. Evitar utilizar codificaciones, prefijos o sufijos en los nombres, como añadir “Txt” a una variable de texto o prefijos como “var” o “_” al principio de un nombre. Esto puede hacer que el código sea más difícil de entender y mantener en el futuro. Es mejor utilizar nombres descriptivos que indiquen claramente el propósito del elemento.
+- Los nombres deben ser pronunciables, es decir, fáciles de decir y entender para cualquier persona que lea el código.
+- Los nombres deben ser lo más precisos posible y describir con exactitud el propósito o función del elemento.
+- Evitar utilizar codificaciones, prefijos o sufijos en los nombres, como añadir “Txt” a una variable de texto o prefijos como “var” o “_” al principio de un nombre. Esto puede hacer que el código sea más difícil de entender y mantener en el futuro. Es mejor utilizar nombres descriptivos que indiquen claramente el propósito del elemento.
 
+* Reglas de consistencia.
+Cuando estamos programando, podemos utilizar diferentes nombres para acciones similares. Por ejemplo, si queremos obtener información sobre un usuario u otra entidad, podríamos usar palabras como “get”, “retrieve”, “fetch”, entre otras. Todas estas opciones son válidas y pueden funcionar bien. Sin embargo, es importante elegir una de estas opciones y mantenerla consistente en todo el proyecto. Esto significa que una vez que hayamos decidido utilizar, por ejemplo, “get” para obtener información, todas las demás acciones de obtener información deben seguir esta misma nomenclatura. Esto ayuda a mantener el código claro y coherente, facilitando la comprensión y el mantenimiento del proyecto a medida que crece.
 
-- Reglas de consistencia.
-- Reglas para funciones.
-- Reglas para comentarios.
-- No agregar contexto innecesario.
+* Reglas para funciones.
+Es importante que las funciones sigan ciertas reglas para mantener el código en un estado óptimo:
+- Responsabilidad única en la función: Una función debe tener una sola responsabilidad. Si una función tiene más de una tarea, es mejor dividirla en funciones más pequeñas, cada una encargada de una única responsabilidad. Siguiendo este principio, podemos asegurarnos de que nuestras funciones sean más fáciles de entender, probar y mantener a largo plazo. Además, nos permite reutilizar estas funciones en diferentes partes de nuestro programa, lo que mejora la modularidad y la legibilidad del código en general.
+- Evitar definir múltiples parámetros en la función: Cuantos más parámetros tenga una función, más complejo será su uso y comprensión. Limitar el número de parámetros simplifica la interfaz de la función y hace que sea más fácil de entender y utilizar. Si una función requiere muchos parámetros, debemos pensar en encapsularlos por medio de alguna interfaz o algún objeto. Una sugerencia es que la función no debe tener más de 3 parámetros, caso contrario debemos reducir a 1.
+
+* Reglas para comentarios.
+- Evitar comentarios de marcadores posicionales: Los comentarios posicionales son comentarios que separan secciones dentro del código. Estos marcadores no aportan ningún valor útil.
+- Eliminar código comentado: El código comentado solamente ensucia el entorno de trabajo. Hoy en día ya tenemos versionamiento de código como lo es Git para poder recuperar código escrito con anterioridad.
+
+* No agregar contexto innecesario.
+El principio “No agregue contexto innecesario” se trata de mantener el código simple y fácil de entender al eliminar información que no sea necesaria para comprender o utilizar el código de manera efectiva. Esto implica evitar agregar detalles irrelevantes o excesivos que no contribuyan a la funcionalidad o claridad del código. Para aplicar este principio, es importante elegir nombres apropiados para las variables, clases, métodos y otros elementos del código. Asegúrate de que estos nombres sean claros y breves, evitando repetir información que ya es evidente según el contexto.
 
 Adicionalmente, en el campo del desarrollo de software, existen varios acrónimos que resumen principios prácticos fundamentales que complementan los principios de Clean Code y están estrechamente relacionados. Algunos de estos acrónimos sonlos siguientes:
 
-DRY — “Don’t Repeat Yourself”.
-KISS — “Keep It Simple, Stupid”.
-YAGNI — “You Aren’t Gonna Need It”.
+* DRY — “Don’t Repeat Yourself”.
+Cuando aplicas el principio DRY, buscas eliminar la repetición de código escribiendo cada pieza de lógica o funcionalidad solo una vez y reutilizándola cuando sea necesario en lugar de copiar y pegar el mismo código en múltiples lugares. Algunas pautas que sirven de guía para saber si no estamos aplicando el principio DRY:
+- Copiar y pegar código
+- Múltiples versiones de lógica similar
+- Valores mágicos o literales repetidos
+- Redundancia en estructuras de control
+- Reglas de negocio duplicadas
+- Exceso de parámetros en funciones
+
+* KISS — “Keep It Simple, Stupid”.
+Este principio es una guía de diseño y desarrollo que aboga por la simplicidad como un objetivo clave en el diseño de sistemas y la escritura de código. El principio KISS se puede aplicar de varias maneras en el contexto del desarrollo de software:
+- Escritura de código: Se recomienda escribir código claro, legible y conciso, utilizando nombres de variables y funciones descriptivos, evitando la duplicación de código y manteniendo la estructura y la lógica lo más simple posible.
+- Mantenimiento y escalabilidad: Un código más simple es más fácil de mantener, depurar y actualizar en el futuro. Además, un diseño simple suele ser más flexible y adaptable a cambios y requisitos futuros.
+
+* YAGNI — “You Aren’t Gonna Need It”.
+Este principio se utiliza en el desarrollo de software y en la ingeniería de software para enfatizar que no debes agregar funcionalidades o escribir código que no sea necesario en el momento actual. En lugar de anticipar posibles necesidades futuras y agregar funcionalidades complejas de manera especulativa, se enfoca en implementar solo lo que se necesita en el momento presente para cumplir con los requisitos del proyecto.
 
