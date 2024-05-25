@@ -82,16 +82,14 @@ A continuación presentamos los blue prints de servicios identificados
 ![BP Gestionar dispositivos](Diagramas/BP-Gestionar-dispositivos.png)
 
 
-## Consideraciones Código Limpio
+#### Consideraciones Código Limpio
 Se recomienda seguir las pautas de desarrollo bajo código limpio, las cuales se resumen a continuación
 
 * Los principios del código limpio son los siguientes:
 
 - La regla del boy scout: Cuando estás trabajando en un software, trata de mejorar tu entorno de trabajo siempre que sea posible, tal como lo hacen los boy scout con el medio ambiente. Por ejemplo, puedes cambiar el nombre de una variable confusa, dividir una tarea en funciones reutilizables, separar responsabilidades en diferentes partes del código, o cualquier otra acción que mejore tu flujo de trabajo.
 
-- Nombres con sentido: Los nombres de variables y funciones deben ser descriptivos y claros para que cualquier persona que lea el código pueda comprender fácilmente su propósito y su función dentro del programa. 
--- Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular.
-
+- Nombres con sentido: Los nombres de variables y funciones deben ser descriptivos y claros para que cualquier persona que lea el código pueda comprender fácilmente su propósito y su función dentro del programa. Las reglas de nombres de variables establecen que estas deben ser sustantivos y describir claramente su propósito en el contexto del código. Es decir, el nombre de una variable debe indicar qué representa o qué almacena dentro del programa. También dependiendo del tipo de dato podemos expresar nombres en plural o singular.
 
 |Objeto|Regla|Incorrecto|Correcto|
 |:-:|:-:|:-:|:-:|
@@ -99,7 +97,10 @@ Se recomienda seguir las pautas de desarrollo bajo código limpio, las cuales se
 |Funciones|Los métodos o funciones deben ser nombrados con verbos que describan claramente lo que hacen. Es importante que el nombre de la función refleje su propósito y la acción que realiza dentro del programa. Por ejemplo, en lugar de nombres genéricos o ambiguos, como “calcular” o “procesar”, es preferible utilizar nombres descriptivos que indiquen específicamente la tarea que realiza la función. Esto ayuda a mejorar la comprensión del código y facilita su mantenimiento a largo plazo. A su vez, los parámetros de entrada deben ser descriptivos.|upload, create|upload_file, create_user|
 |Clases|Cuando se nombran clases en programación, es importante utilizar sustantivos o frases de nombres que describan claramente su propósito y función en el programa. Evita nombres genéricos como “Data” o “Loader”, ya que no transmiten información suficiente sobre el propósito de la clase.|Convert, Parse|ConvertPDF, XMLParse|
 
-
+Al nombrar variables, métodos o cualquier otro elemento en programación, se deben seguir las siguientes reglas generales:
+- Los nombres deben ser pronunciables, es decir, fáciles de decir y entender para cualquier persona que lea el código.
+- Los nombres deben ser lo más precisos posible y describir con exactitud el propósito o función del elemento.
+- Evitar utilizar codificaciones, prefijos o sufijos en los nombres, como añadir “Txt” a una variable de texto o prefijos como “var” o “_” al principio de un nombre. Esto puede hacer que el código sea más difícil de entender y mantener en el futuro. Es mejor utilizar nombres descriptivos que indiquen claramente el propósito del elemento.
 
 
 - Reglas de consistencia.
