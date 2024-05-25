@@ -102,24 +102,24 @@ Al nombrar variables, métodos o cualquier otro elemento en programación, se de
 - Los nombres deben ser lo más precisos posible y describir con exactitud el propósito o función del elemento.
 - Evitar utilizar codificaciones, prefijos o sufijos en los nombres, como añadir “Txt” a una variable de texto o prefijos como “var” o “_” al principio de un nombre. Esto puede hacer que el código sea más difícil de entender y mantener en el futuro. Es mejor utilizar nombres descriptivos que indiquen claramente el propósito del elemento.
 
-* Reglas de consistencia.
+#### Reglas de consistencia.
 Cuando estamos programando, podemos utilizar diferentes nombres para acciones similares. Por ejemplo, si queremos obtener información sobre un usuario u otra entidad, podríamos usar palabras como “get”, “retrieve”, “fetch”, entre otras. Todas estas opciones son válidas y pueden funcionar bien. Sin embargo, es importante elegir una de estas opciones y mantenerla consistente en todo el proyecto. Esto significa que una vez que hayamos decidido utilizar, por ejemplo, “get” para obtener información, todas las demás acciones de obtener información deben seguir esta misma nomenclatura. Esto ayuda a mantener el código claro y coherente, facilitando la comprensión y el mantenimiento del proyecto a medida que crece.
 
-* Reglas para funciones.
+#### Reglas para funciones.
 Es importante que las funciones sigan ciertas reglas para mantener el código en un estado óptimo:
 - Responsabilidad única en la función: Una función debe tener una sola responsabilidad. Si una función tiene más de una tarea, es mejor dividirla en funciones más pequeñas, cada una encargada de una única responsabilidad. Siguiendo este principio, podemos asegurarnos de que nuestras funciones sean más fáciles de entender, probar y mantener a largo plazo. Además, nos permite reutilizar estas funciones en diferentes partes de nuestro programa, lo que mejora la modularidad y la legibilidad del código en general.
 - Evitar definir múltiples parámetros en la función: Cuantos más parámetros tenga una función, más complejo será su uso y comprensión. Limitar el número de parámetros simplifica la interfaz de la función y hace que sea más fácil de entender y utilizar. Si una función requiere muchos parámetros, debemos pensar en encapsularlos por medio de alguna interfaz o algún objeto. Una sugerencia es que la función no debe tener más de 3 parámetros, caso contrario debemos reducir a 1.
 
-* Reglas para comentarios.
+#### Reglas para comentarios.
 - Evitar comentarios de marcadores posicionales: Los comentarios posicionales son comentarios que separan secciones dentro del código. Estos marcadores no aportan ningún valor útil.
 - Eliminar código comentado: El código comentado solamente ensucia el entorno de trabajo. Hoy en día ya tenemos versionamiento de código como lo es Git para poder recuperar código escrito con anterioridad.
 
-* No agregar contexto innecesario.
+#### No agregar contexto innecesario.
 El principio “No agregue contexto innecesario” se trata de mantener el código simple y fácil de entender al eliminar información que no sea necesaria para comprender o utilizar el código de manera efectiva. Esto implica evitar agregar detalles irrelevantes o excesivos que no contribuyan a la funcionalidad o claridad del código. Para aplicar este principio, es importante elegir nombres apropiados para las variables, clases, métodos y otros elementos del código. Asegúrate de que estos nombres sean claros y breves, evitando repetir información que ya es evidente según el contexto.
 
 Adicionalmente, en el campo del desarrollo de software, existen varios acrónimos que resumen principios prácticos fundamentales que complementan los principios de Clean Code y están estrechamente relacionados. Algunos de estos acrónimos sonlos siguientes:
 
-* DRY — “Don’t Repeat Yourself”.
+#### DRY — “Don’t Repeat Yourself”.
 Cuando aplicas el principio DRY, buscas eliminar la repetición de código escribiendo cada pieza de lógica o funcionalidad solo una vez y reutilizándola cuando sea necesario en lugar de copiar y pegar el mismo código en múltiples lugares. Algunas pautas que sirven de guía para saber si no estamos aplicando el principio DRY:
 - Copiar y pegar código
 - Múltiples versiones de lógica similar
@@ -128,11 +128,11 @@ Cuando aplicas el principio DRY, buscas eliminar la repetición de código escri
 - Reglas de negocio duplicadas
 - Exceso de parámetros en funciones
 
-* KISS — “Keep It Simple, Stupid”.
+#### KISS — “Keep It Simple, Stupid”.
 Este principio es una guía de diseño y desarrollo que aboga por la simplicidad como un objetivo clave en el diseño de sistemas y la escritura de código. El principio KISS se puede aplicar de varias maneras en el contexto del desarrollo de software:
 - Escritura de código: Se recomienda escribir código claro, legible y conciso, utilizando nombres de variables y funciones descriptivos, evitando la duplicación de código y manteniendo la estructura y la lógica lo más simple posible.
 - Mantenimiento y escalabilidad: Un código más simple es más fácil de mantener, depurar y actualizar en el futuro. Además, un diseño simple suele ser más flexible y adaptable a cambios y requisitos futuros.
 
-* YAGNI — “You Aren’t Gonna Need It”.
+#### YAGNI — “You Aren’t Gonna Need It”.
 Este principio se utiliza en el desarrollo de software y en la ingeniería de software para enfatizar que no debes agregar funcionalidades o escribir código que no sea necesario en el momento actual. En lugar de anticipar posibles necesidades futuras y agregar funcionalidades complejas de manera especulativa, se enfoca en implementar solo lo que se necesita en el momento presente para cumplir con los requisitos del proyecto.
 
