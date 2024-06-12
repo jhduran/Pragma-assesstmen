@@ -1,0 +1,1219 @@
+openapi: 3.0.3
+info:
+  title: Sistema CCS - Users Management
+  version: 1.0.0
+  description: >-
+    Permite registrar la información básica asociada a los usuarios del sistema
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: contacto@correo.com.co
+servers:
+  - url: 'api.dev.integration.ccs.com'
+    description: 'Servidor de desarrollo'
+    variables:
+      basepath:
+        default: 'sistema-ccs/asset/v1'
+  - url: 'api.qa.integration.ccs.com'
+    description: 'Servidor de pruebas'
+    variables:
+      basepath:
+        default: 'sistema-ccs/asset/v1'
+  - url: 'api.pr.ccs.com'
+    description: 'Servidor de producción'
+    variables:
+      basepath:
+        default: 'sistema-ccs/asset/v1'  
+  
+  - url: https://sistema-ccs/v1/reference-data/users-management
+
+paths:
+#---- Área para definir operaciones ----#
+  /users/register-information:
+    post:
+      operationId: registerInformation
+      x-api-type: proxy-jwt
+      summary: >-
+        Realiza la creación del registro de los datos básicos del usuario.
+      description: >
+        ### Clasificación de la información: Privado
+        Permite consultar la información básica del usuario que está registrado en el sistema CCS
+      x-integration-type: LAMBDA
+      parameters:
+        - $ref: "#/components/parameters/X-requestId"
+        - $ref: "#/components/parameters/X-user"
+        - $ref: "#/components/parameters/X-terminal"
+        - $ref: "#/components/parameters/X-payload-datetime"
+        - $ref: "#/components/parameters/Accept-Language"
+        - $ref: "#/components/parameters/AcceptContent"
+      
+#---- Área de body ----#      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registerRequest'
+            examples:
+              registra de datos básicos del usuario:
+                description: 
+                  <b>Dado:</b> Dado que se desea registrar toda la información asociada a un usuario del sistema CCS, se envía toda la información básica requerida<p>
+                  <b>Cuando:</b> se consume el api<p>
+                  <b>Entonces:</b>se registra la información del usuario correctamente<p>
+                value:
+                  data:
+                    userData:
+                      identification:
+                        type: "CC"
+                        number: "123456456"
+                        name: "Paola Hernandez Suarez"
+                    userContactInformation:
+                      contactType: "Correo electrónico"
+                      description: "Correo principal"
+                      information: phernandezs@correo.com.co
+                    userCredentials:
+                      nameAlias: "phernandez"
+                      credentials: "R7664a8c9a83e4"
+
+              Tipo de documento no válido:
+                description: 
+                  <b>Dado:</b> Dado que se desea consultar toda la información asociada a un usuario del sistema CCS, filtrando la consulta por tipo y número de documento, y se envía un tipo de documento no válido<p>
+                  <b>Cuando:</b> se envían los datos y se comprueba que el tipo de documento no es válido<p>
+                  <b>Entonces:</b> se genera un error indicando datos inválidos<p> 
+                value:
+                  data:
+                    userData:
+                      identification:
+                        type: "Ck"
+                        number: "123456456"
+                        name: "Paola Hernandez Suarez"
+                    userContactInformation:
+                      contactType: "Correo electrónico"
+                      description: "Correo principal"
+                      information: phernandezs@correo.com.co
+                    userCredentials:
+                      nameAlias: "phernandez"
+                      credentials: "R7664a8c9a83e4"
+
+              Faltan_parámetros_obligatorios:
+                description: 
+                  <b>Dado:</b> Dado que se desea registrar el usuario en el sistemaCCS y no se envía alguno de los datos requeridos<p>
+                  <b>Cuando:</b> se consume el api<p>
+                  <b>Entonces:</b> se genera un error indicando datos inválidos<p> 
+                value:
+                  data:
+                    meta:
+                     _requestDateTime: '2024-01-26T14:52:09.779Z'
+                     _applicationId: default
+                     _messageId: dbff089d-292d-4894-b842-8e88c7003525
+                    status: 400
+                    title: Bad Resquest
+                    errors:
+                      - code: BP20252
+                        detail: Faltan parámetros obligatorios (typeDocument)
+                      
+      responses:
+       '200':
+          description: successful operation
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+
+
+       '400':
+          description: "Mensaje de bad request."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              examples:
+                Faltan parámetros obligatorios:
+                      description: 
+                        <b>Dado:</b> Que no se envian todos los datos obligatorios.<p>
+                        <b>Cuando:</b> se consume el api<p>
+                        <b>Entonces:</b> Se recibe un mensaje de excepción<p> 
+                      value:
+                        data:
+                         meta:
+                          _requestDateTime: '2024-01-26T14:52:09.779Z'
+                          _applicationId: default
+                          _messageId: dbff089d-292d-4894-b842-8e88c7003525
+                         status: 400
+                         title: Bad Resquest
+                         errors:
+                          - code: BP20252
+                            detail: Faltan parámetros obligatorios (typeDocument)
+          x-aws-languages:
+            description:
+              en: Error in the request.                            
+
+       '401':
+          description: "Credenciales incorrectas."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+          x-aws-languages:
+            description:
+              en: Incorrect credentials.                        
+                        
+       '404':
+          description: "Recurso no encontrado."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              example:  
+                Usuario no se encuentra registrado:
+                  description: 
+                    <b>Dado:</b> Que se envía datos de identificación de un usuario no registrado.<p>
+                    <b>Cuando:</b> se consume el api<p>
+                    <b>Entonces:</b> Se recibe un mensaje de excepción<p>      
+                  value:
+                    data:
+                     meta:
+                      _requestDateTime: '2024-01-26T14:52:09.779Z'
+                      _applicationId: default
+                      _messageId: dbff089d-292d-4894-b842-8e88c7003525
+                     status: 404
+                     title: Not Found
+                     errors:
+                      - code: BP20250
+                        detail: No se encontraron registros                
+          x-aws-languages:
+            description:
+              en: Resource not found.                         
+                
+       '409':
+          description: >
+            El estado del recurso presenta conflictos con los datos de la solicitud.
+            ### Códigos de error
+            Listado de códigos de error
+            | code    | detail                                   |
+            | ------- | ---------------------------------------- |
+            | BP20277 | Activación en proceso, intente más tarde |
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              examples:
+                Identificador de relación cliente-comercio vencido:
+                  description: 
+                    <b>Dado:</b> Que se desea registrar un usuario que está en el proceso de registro.<p>
+                    <b>Cuando:</b> se consume el api<p>
+                    <b>Entonces:</b> Se recibe un mensaje de excepción<p>    
+                  value:
+                    data:
+                     meta:
+                      _requestDateTime: '2024-01-26T14:52:09.779Z'
+                      _applicationId: default
+                      _messageId: dbff089d-292d-4894-b842-8e88c7003525
+                     status: 409
+                     title: Conflict
+                     errors:
+                      - code: BP20277
+                        detail: Activación en proceso, intente más tarde
+          x-aws-languages:
+            description:
+              en: Resource state has conflicts with data of the request.                        
+
+       '500':
+          description: "Error interno en el servidor."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              example:
+                meta:
+                  _messageId: c4e6bd04-5149-11e7-b114-b2f933d5fe68
+                  _requestDateTime: 2017-01-24T05:00:00.000Z
+                  _applicationId: acxff62e-6f12-42de-9012-3e7304418abd
+                status: 500
+                title: Internal Server Error
+                errors:
+                  - code: BP20257
+                    detail: El evento no pudo ser realizado, intente nuevamente.
+          x-aws-languages:
+            description:
+              en: Internal server error.                    
+                
+       '502':
+          description: "Mensaje del backend + estructura detallada."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              example:
+                meta:
+                  _messageId: c4e6bd04-5149-11e7-b114-b2f933d5fe68
+                  _requestDateTime: 2017-01-24T05:00:00.000Z
+                  _applicationId: acxff62e-6f12-42de-9012-3e7304418abd
+                status: 502
+                title: Bad Gateway
+                errors:
+                  - code: BP20257
+                    detail: El evento no pudo ser realizado, intente nuevamente.
+          x-aws-languages:
+            description:
+              en: Error in the service provider response.                
+
+       '504':
+          description: "Se ha agotado el tiempo de espera para la transacción."
+          headers:
+            X-responseId:
+              $ref: '#/components/headers/X-responseId'
+            x-jws-signature:
+              $ref: '#/components/headers/x-jws-signature'
+            Content-Language:
+              $ref: '#/components/headers/Content-Language'
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            x-payload-datetime:
+              $ref: '#/components/headers/x-payload-datetime'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Content-Security-Policy:
+              $ref: '#/components/headers/Content-Security-Policy'
+            Referrer-Policy:
+              $ref: '#/components/headers/Referrer-Policy'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/Strict-Transport-Security'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/X-Content-Type-Options'
+            Cache-Control:
+              $ref: '#/components/headers/Cache-Control'
+            X-Permitted-Cross-Domain-Policies:
+              $ref: '#/components/headers/X-Permitted-Cross-Domain-Policies'
+            Accept:
+              $ref: '#/components/headers/Accept'
+            Content-Type:
+              $ref: '#/components/headers/Content-Type'
+             
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorRS'
+              example:
+                meta:
+                  _messageId: c4e6bd04-5149-11e7-b114-b2f933d5fe68
+                  _requestDateTime: 2017-01-24T05:00:00.000Z
+                  _applicationId: acxff62e-6f12-42de-9012-3e7304418abd
+                status: 504
+                title: Gateway Timeout
+                errors:
+                  - code: BP20257
+                    detail: El evento no pudo ser realizado, intente nuevamente.                
+          x-aws-languages:
+            description:
+              en: Service provider response time exceeded.                      
+
+      security:
+        - lambda-authorizer: []
+   
+components:
+
+  headers:
+  
+     X-responseId:
+         description: ID que relaciona la respuesta con la solicitud. El valor de este campo debe coincidir con el valor x-requestId enviado en la solicitud.
+         schema:
+           type: string
+           format: uuid
+
+     x-jws-signature:
+         description: JSON Web Signature (JWS) generado para firmar las peticiones RS.
+         schema:
+           type: string
+
+     Content-Language:
+         description: Indica el conjunto de lenguajes de preferencia que soporta el API en la respuesta, valor por defecto Español Colombia (es-CO). Ver https://tools.ietf.org/html/rfc5646
+         schema:
+           type: string 
+      
+     Access-Control-Allow-Headers:
+         description: Header para habilitar el CORS.
+         schema:
+           type: string
+     
+     Access-Control-Allow-Credentials:
+         description: Header para especificar si se maneja o no credenciales cuando en la cabecera Access-Control-Allow-Origin se define un dominio en integraciones CORS.
+         schema:
+           type: string
+           
+     x-payload-datetime:
+         description: Fecha y hora en la que se originó la solicitud o petición por el usuario en la aplicación de front-end.
+         required: true
+         schema:
+           allOf:
+             - $ref: '#/components/schemas/ISODateTime'           
+
+     Content-Security-Policy:
+         description: Política de seguridad de contenido.
+         required: true
+         schema:
+           type: string
+           default: default-src 'self'
+      
+     Referrer-Policy:
+        description: Controla la cantidad de información de referencia (enviada con el encabezado de referencia) que se debe incluir con las solicitudes.
+        required: true
+        schema:
+          type: string
+          default: strict-origin-when-cross-origin
+      
+     Strict-Transport-Security:
+        description: Informa a los navegadores que solo se debe acceder al sitio mediante HTTPS, y que cualquier intento futuro de acceder a él mediante HTTP se debe conventir automáticamente a HTTPS.
+        required: true
+        schema:
+          type: string
+          default: max-age=31536000
+
+     X-Content-Type-Options:
+         description: Marcador utilizado por el servidor para indicar que los tipos MIME anunciados en los encabezados de tipo de contenido deben seguirse y no cambiarse.
+         required: true
+         schema:
+           type: string
+           default: nosniff
+      
+     Cache-Control:
+         description: Contiene directivas (instrucciones) - tanto en peticiones como en respuestas - para controlar el almacenamiento temporal (caching) en navegadores y cachés compartidas (p. ej. Proxies, CDNs).
+         required: true
+         schema:
+           type: string
+           default: "no-cache"
+      
+     X-Permitted-Cross-Domain-Policies:
+         description: Se usa para permitir documentos PDF y Flash para solicitudes entre dominios.
+         required: true
+         schema:
+           type: string
+           default: "none"
+      
+     Accept:
+         description: Se utiliza para informar al servidor, por parte del cliente, qué tipo de contenido es comprensible para el cliente expresado como tipos MIME
+         required: true
+         schema:
+           type: string
+           default: "application/json"      
+
+     Content-Type:
+         description: Se utiliza para indicar el tipo de medio del recurso. El tipo de medio es una cadena enviada junto con el archivo que indica el formato del archivo.
+         required: true
+         schema:
+           type: string
+           default: "application/json"    
+
+     Access-Control-Allow-Origin:
+         description: Header para habilitar el CORS.    
+         style: simple
+         explode: false
+         schema:
+            type: string
+
+  securitySchemes:
+    lambda-authorizer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Mecanismo de seguridad asignado para el consumo del API.
+      
+  parameters:
+  
+     X-requestId:
+        name: x-requestId
+        in: header
+        description: Identificador único de la petición.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: "b01adcbc-d158-410e-aa95-908e8ce2b618"
+          
+     X-user:
+       name: x-user
+       in: header
+       description: Login de usuario en la aplicación de front-end que realiza la petición.
+       required: true
+       schema:
+         type: string
+         minLength: 1
+         example: "user12345"
+       
+     X-terminal:
+       name: x-terminal
+       in: header
+       description: Terminal (IP, número de teléfono, o identificador) del dispositivo desde el cual se originó la solicitud o petición por el usuario en la aplicacón de front-end.
+       schema:
+         type: string
+         minLength: 1
+         example: "192.228.17.57"
+
+     X-responseId:
+       name: x-responseId
+       in: header
+       description: ID que relaciona la respuesta con la solicitud. El valor de este campo debe coincidir con el valor x-requestId enviado en la solicitud
+       required: true
+       schema:
+         type: string
+         
+     X-payload-datetime:
+       name: x-payload-datetime
+       in: header
+       description: Fecha y hora en la que se originó la solicitud o petición por el usuario en la aplicación front-end
+       schema:
+         allOf:
+         - $ref: '#/components/schemas/ISODateTime'         
+    
+     X-jws-signature:
+       name: x-jws-signature
+       in: header
+       description: JSON Web Signature (JWS) generado para firmar las peticiones RQ.
+       schema:
+         type: string
+      
+     Accept-Language:
+       name: Accept-Language
+       in: header
+       description: Indica el conjunto de lenguajes de preferencia que soporta el cliente en la respuesta.
+       schema:
+         type: string
+   
+     AcceptContent:
+       name: AcceptContent
+       in: header
+       description: Indica el tipo de contenido que el cliente puede procesar. Originalmente Accept
+       schema:
+         type: string
+         enum:
+           - appication/json
+        
+  schemas:
+  
+    ISODateTime:
+      type: string
+      format: datetime
+      description: date-Time format
+      example: "YYYY-MM-DDThh:mm:ss.sssZ"  
+  
+    ErrorRS:
+      description: Objeto que contiene la información del error
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/basicErrorRS'
+          - type: object
+            properties:
+              errors:
+                $ref: '#/components/schemas/errors'
+
+    basicErrorRS:
+      type: object
+      description: Estado de la respuesta
+      required:
+        - meta      
+        - status
+        - title
+      additionalProperties: false
+      properties:
+        meta:
+          $ref: '#/components/schemas/meta'      
+        status:
+          $ref: '#/components/schemas/status'
+        title:
+          $ref: '#/components/schemas/title'
+
+    errors:
+      type: array
+      description: Lista de errores detectados.
+      items:
+        properties:
+          code:
+            $ref: '#/components/schemas/error'
+
+    status:
+      type: number
+      description: >-
+            Codigo de estado HTTP (status code) asociado al mensaje de error de
+            la respuesta del llamado a la API.
+      example: 404
+    title:
+      type: string
+      description: >-
+        Titulo asociado al codigo de estado HTTP (status code) asociado al
+        mensaje de error de la respuesta del llamado a la API.
+      example: Not Found
+
+    error:
+      required:
+        - code
+        - detail
+      type: object
+      properties:
+        code:
+          type: string
+          description: An application-specific error code, expressed as a string value.
+          example: BP404
+        detail:
+          type: string
+          description: >-
+            A human-readable explanation specific to this occurrence of the
+            problem.
+          example: Requested resource could not be found
+
+    registerRequest:
+      required:
+        - data
+      type: object        
+      properties:
+        data:
+          type: object
+          required:
+            - usersData
+            - usersContactInformation
+            - usersCredentials
+          properties:
+            usersData:
+              $ref: '#/components/schemas/userData'
+            usersContactInformation:              
+              $ref: '#/components/schemas/userContactInformation'
+            usersCredentials:              
+              $ref: '#/components/schemas/userCredentials'           
+              
+    userData:
+      type: object
+      description: Datos de identificación del usuario
+      required:
+        - type
+        - number
+        - name
+      properties:
+        type:
+          type: string
+          description: >-
+            Tipo de documento del cliente
+          enum:
+            - "CC"
+            - "CE"
+            - "PA"
+            - "PEP"
+          minLength: 2
+          maxLength: 25
+          example: 'CC'
+        number:
+          type: string
+          description: >-
+            Número de documento de identidad del cliente
+          minLength: 10
+          maxLength: 60
+          example: '1234567890'
+        name:
+          type: string
+          description: >-
+            Nombre completo del usuario
+          minLength: 20
+          maxLength: 200
+          example: 'Ernesto Suarez Gomez'          
+
+    userContactInformation:
+      type: array
+      required:
+        - contactType
+        - description
+        - information
+      items:  
+        properties:
+          contactType:
+            minLength: 10
+            maxLength: 60        
+            type: string
+            example: "Dirección"
+          description:
+            minLength: 5
+            maxLength: 100        
+            type: string
+            example: "Dirección de habitación"
+          information:
+            type: string
+            minLength: 10
+            maxLength: 250            
+            example: "Cra. 22 #50-50 Conjunto Arboleda T1-105"
+            
+    userCredentials:
+      type: object
+      required:
+        - aliasName
+        - credentials
+      properties:
+        aliasName:
+          type: string
+          description: >-
+            Alias con el cual el usuario se encuentra registrado en el sistema
+          minLength: 10
+          maxLength: 60
+          example: 'cmmondragon'
+        credentials:
+          type: string
+          description: >-
+            Credenciales cifradas del usuario
+          minLength: 10
+          maxLength: 60
+          example: 'R7664a8c9a83e4'            
+
+    meta:
+      required:
+        - _applicationId
+        - _messageId
+        - _requestDateTime
+      type: object
+      properties:
+        _messageId:
+          type: string
+          format: uuid
+          example: 56d6adc5-b25a-4d75-a663-56a62bad4982
+        _requestDateTime:
+          type: string
+          format: date-time
+          example: 2016-06-23T16:07:21.205Z
+        _applicationId:
+          type: string
+          example: acxff62e-6f12-42de-9012-3e7304418abd
+      description: Datos de trazabilidad e informacion técnica del mensaje.
+        
+# APIGateway - Rediseño de mensajes de error
+x-amazon-apigateway-gateway-responses:
+ ACCESS_DENIED:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+     
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 400,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+
+ API_CONFIGURATION_ERROR:
+   statusCode: 500
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+     
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 500,\"message\": \"The server encountered an unexpected condition which prevented it from fulfilling the request.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"    
+     
+ AUTHORIZER_CONFIGURATION_ERROR:
+   statusCode: 500
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 500,\"message\": \"The server encountered an unexpected condition which prevented it from fulfilling the request.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ AUTHORIZER_FAILURE:
+   statusCode: 500
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 500,\"message\": \"The server encountered an unexpected condition which prevented it from fulfilling the request.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"  
+  
+ BAD_REQUEST_BODY:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 400,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"detail\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ BAD_REQUEST_PARAMETERS:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+    
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 400,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"detail\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ EXPIRED_TOKEN:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 403,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+ 
+ INTEGRATION_FAILURE:
+   statusCode: 500
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+    
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 500,\"message\": \"The server encountered an unexpected condition which prevented it from fulfilling the request.\",\"detail\": \"The server encountered an unexpected condition which prevented it from fulfilling the request.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+
+ INTEGRATION_TIMEOUT:
+   statusCode: 504
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 504,\"message\": \"The server, while acting as a gateway or proxy, did not get a response in time from the upstream server that it needed in order to complete the request.\",\"detail\": \"Gateway timeout.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ INVALID_API_KEY:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 403,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ INVALID_SIGNATURE:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 403,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+
+ MISSING_AUTHENTICATION_TOKEN:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 403,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ QUOTA_EXCEEDED:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 429,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ REQUEST_TOO_LARGER:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 413,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+
+ RESOURCE_NOT_FOUND:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 404,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ THROTTLED:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 429,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+
+ UNAUTHORIZED:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 401,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ UNSUPPORTED_MEDIA_TYPE:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 415,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
+ WAF_FILTERED:
+   statusCode: 400
+   responseParameters:
+     gatewayresponse.header.x-responseId: method.request.header.x-requestId
+     gatewayresponse.header.x-payload-datetime: method.request.header.x-payload-datetime
+     gatewayresponse.header.Content-Security-Policy: "'default-src 'self'"
+     gatewayresponse.header.Referrer-Policy: "'strict-origin-when-cross-origin'"
+     gatewayresponse.header.Strict-Transport-Secutiry: "'max-age=31536000'"
+     gatewayresponse.header.X-Content-Type-Options: "'nosniff'"
+     gatewayresponse.header.Cache-Control: "'no-cache'"
+     gatewayresponse.header.X-Permitted-Cross-Domain-Policies: "'none'"
+     gatewayresponse.header.Accept: "'application/json'"
+     gatewayresponse.header.Content-Type: "'application/json'"
+
+   responseTemplates:
+     application/json: "{\"status\":{\"code\": 413,\"message\": \"The request could not be understood by the server due to malformed syntax.\",\"errors\":[{\"code\":\"$context.error.responseType\",\"message\": \"$context.error.message\"}]}}"
+     
